@@ -1,0 +1,37 @@
+﻿@model Arobs_Battleships.ViewModels.Home.HomeViewModel
+
+<div id="battlefield_container">
+    <table>
+        <tbody>
+            <tr>
+                <td><div class="cell"></div></td>
+                @for (char c = 'A'; c < 'K'; c++)
+                {
+                    <td><div class="cell">@c</div></td>
+                }
+            </tr>
+            @for (int i = 1; i < 11; i++)
+            {
+                <tr>
+                    <td><div class="cell">@i</div></td>
+                    @for (char c = 'A'; c < 'K'; c++)
+                    {
+                        var cell = Model.Grid.GetCellByCoordinates(c, i);
+                        <td><div class="cell cell-border" data-state="IsWater" data-position="@(cell.Column.ToString() + cell.Row)"></div></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.cell-border').click(function () {
+                var position = $(this).attr('data-position');
+                shoot(position.charAt(0), position.substring(1));
+            });
+        });
+    </script>
+}

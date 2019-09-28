@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29201.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arobs_Battleships", "Arobs_Battleships\Arobs_Battleships.csproj", "{4E15D75B-4AE4-4503-9F33-EB3FBBCD1778}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E15D75B-4AE4-4503-9F33-EB3FBBCD1778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E15D75B-4AE4-4503-9F33-EB3FBBCD1778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E15D75B-4AE4-4503-9F33-EB3FBBCD1778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E15D75B-4AE4-4503-9F33-EB3FBBCD1778}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7CE45750-2FBA-48D7-8004-BA8AF79AA28B}
+	EndGlobalSection
+EndGlobal

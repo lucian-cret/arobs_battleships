@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "Arobs_Battleships": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
