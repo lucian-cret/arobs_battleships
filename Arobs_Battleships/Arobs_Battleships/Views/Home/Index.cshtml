@@ -1,28 +1,35 @@
 ﻿@model Arobs_Battleships.ViewModels.Home.HomeViewModel
 
-<div id="battlefield_container">
-    <table>
-        <tbody>
-            <tr>
-                <td><div class="cell"></div></td>
-                @for (char c = 'A'; c < 'K'; c++)
-                {
-                    <td><div class="cell">@c</div></td>
-                }
-            </tr>
-            @for (int i = 1; i < 11; i++)
-            {
+<div class="row">
+    <div class="menu center-content">
+        <button type="button" onclick="window.location.href='/'">New game</button>
+    </div>
+</div>
+<div class="row">
+    <div class="center-content">
+        <table>
+            <tbody>
                 <tr>
-                    <td><div class="cell">@i</div></td>
+                    <td><div class="cell"></div></td>
                     @for (char c = 'A'; c < 'K'; c++)
                     {
-                        var cell = Model.Grid.GetCellByCoordinates(c, i);
-                        <td><div class="cell cell-border" data-state="IsWater" data-position="@(cell.Column.ToString() + cell.Row)"></div></td>
+                        <td><div class="cell">@c</div></td>
                     }
                 </tr>
-            }
-        </tbody>
-    </table>
+                @for (int i = 1; i < 11; i++)
+                {
+                    <tr>
+                        <td><div class="cell">@i</div></td>
+                        @for (char c = 'A'; c < 'K'; c++)
+                        {
+                            var cell = Model.Grid.GetCellByCoordinates(c, i);
+                            <td><div class="cell cell-border" data-state="IsWater" data-position="@(cell.Column.ToString() + cell.Row)"></div></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 @section Scripts {

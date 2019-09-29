@@ -5,6 +5,7 @@
         IsWater,
         IsWaterHit,
         IsShip,
-        IsShipHit
+        IsShipHit,
+        IsShipSunk
     }
 }

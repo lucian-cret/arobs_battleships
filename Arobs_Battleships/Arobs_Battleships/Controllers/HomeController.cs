@@ -1,6 +1,7 @@
 ﻿using Arobs_Battleships.Models;
 using Arobs_Battleships.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Arobs_Battleships.Controllers
 {
@@ -33,7 +34,17 @@ namespace Arobs_Battleships.Controllers
                     cell.State = CellState.IsShipHit;
                     break;
             }
-            return Ok(Json(cell.State.ToString()));
+            var ship = grid.GetCellShip(cell);
+            if (ship != null && ship.IsSunk)
+            {
+                ship.Cells.ForEach(c => c.State = CellState.IsShipSunk);
+                if (grid.Ships.TrueForAll(s => s.IsSunk))
+                {
+                    return Ok(new ShotResponse(ship.Cells, true));
+                }
+                return Ok(new ShotResponse(ship.Cells, false));
+            }
+            return Ok(new ShotResponse(new List<Cell> { cell }, false));
         }
     }
 }
