@@ -57,6 +57,31 @@ namespace Arobs_Battleships.Models
             return null;
         }
 
+        public ShotResponse ShotAtCell(char column, int row)
+        {
+            var cell = GetCellByCoordinates(column, row);
+            switch (cell.State)
+            {
+                case CellState.IsWater:
+                    cell.State = CellState.IsWaterHit;
+                    break;
+                case CellState.IsShip:
+                    cell.State = CellState.IsShipHit;
+                    break;
+            }
+            var ship = GetCellShip(cell);
+            if (ship != null && ship.IsSunk)
+            {
+                ship.Cells.ForEach(c => c.State = CellState.IsShipSunk);
+                if (Ships.TrueForAll(s => s.IsSunk))
+                {
+                    return new ShotResponse(ship.Cells, true);
+                }
+                return new ShotResponse(ship.Cells, false);
+            }
+            return new ShotResponse(new List<Cell> { cell }, false);
+        }
+
         private Ship SetShipConfiguration(int length)
         {
             Random r = new Random();
