@@ -1,7 +1,7 @@
 ﻿function shoot(column, row) {
     $.ajax({
         method: "POST",
-        url: "shoot",
+        url: "/shoot",
         data: { column: column, row: row }
     })
         .done(function (data) {

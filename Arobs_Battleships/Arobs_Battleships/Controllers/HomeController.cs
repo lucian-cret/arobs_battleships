@@ -2,7 +2,6 @@
 using Arobs_Battleships.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System;
 
 namespace Arobs_Battleships.Controllers
@@ -11,26 +10,34 @@ namespace Arobs_Battleships.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private static Grid grid;
-        private readonly GridConfiguration _gridConfiguration;
 
-        public HomeController(IOptions<GridConfiguration> gridConfiguration, ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger)
         {
-            _gridConfiguration = gridConfiguration.Value;
             _logger = logger;
         }
+
+        [HttpGet]
         public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Post(GridConfigurationViewModel model)
         {
             try
             {
-                grid = new Grid(_gridConfiguration.Rows, _gridConfiguration.Columns);
-                //battleship
-                grid.BuildShip(5);
-                //destroyers
-                grid.BuildShip(4);
-                grid.BuildShip(4);
+                grid = new Grid(model.Rows, model.Columns);
+                for (int i = 0; i < model.Battleships; i++)
+                {
+                    grid.BuildShip(5);
+                }
+                for (int i = 0; i < model.Destroyers; i++)
+                {
+                    grid.BuildShip(4);
+                }
 
                 var viewModel = new HomeViewModel(grid);
-                return View(viewModel);
+                return View("Grid", viewModel);
             }
             catch (Exception ex)
             {

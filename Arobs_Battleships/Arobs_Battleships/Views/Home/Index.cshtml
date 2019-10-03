@@ -1,44 +1,37 @@
-﻿@model Arobs_Battleships.ViewModels.Home.HomeViewModel
+﻿@model Arobs_Battleships.ViewModels.Home.GridConfigurationViewModel
 
 <div class="row">
     <div class="menu center-content">
-        <button type="button" onclick="window.location.href='/'">New game</button>
+        <form asp-controller="Home" asp-action="Post">
+            <div class="form-group row">
+                <label for="rows" class="col-sm-2 col-form-label">Grid size</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" asp-for="Rows" placeholder="Rows">
+                </div>
+                <div class="col-sm-2 text-center">
+                    X
+                </div>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" asp-for="Columns" placeholder="Columns">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="battleships" class="col-sm-2 col-form-label">Battleships</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" asp-for="Battleships" aria-describedby="battleshipsHelp">
+                    <small id="battleshipsHelp" class="form-text text-muted">Number of 5 square ships</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="destroyers" class="col-sm-2 col-form-label">Destroyers</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" asp-for="Destroyers" aria-describedby="destroyersHelp">
+                    <small id="destroyersHelp" class="form-text text-muted">Number of 4 square ships</small>
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary">Start game</button>
+            </div>
+        </form>
     </div>
 </div>
-<div class="row">
-    <div class="center-content">
-        <table>
-            <tbody>
-                <tr>
-                    <td><div class="cell"></div></td>
-                    @for (char c = 'A'; c <= 64 + Model.Grid.NumberOfColumns; c++)
-                    {
-                        <td><div class="cell">@c</div></td>
-                    }
-                </tr>
-                @for (int i = 1; i <= Model.Grid.NumberOfRows; i++)
-                {
-                    <tr>
-                        <td><div class="cell">@i</div></td>
-                        @for (char c = 'A'; c <= 64 + Model.Grid.NumberOfColumns; c++)
-                        {
-                            var cell = Model.Grid.GetCellByCoordinates(c, i);
-                            <td><div class="cell cell-border" data-state="IsWater" data-position="@(cell.Column.ToString() + cell.Row)"></div></td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-
-@section Scripts {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.cell-border').click(function () {
-                var position = $(this).attr('data-position');
-                shoot(position.charAt(0), position.substring(1));
-            });
-        });
-    </script>
-}
