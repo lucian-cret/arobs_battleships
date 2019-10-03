@@ -6,20 +6,28 @@ namespace Arobs_Battleships.Models
 {
     public class Grid
     {
-        private readonly int[] Rows = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        private readonly char[] Columns = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
+        //private readonly int[] Rows = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        //private readonly char[] Columns = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
+        public int NumberOfRows { get; set; }
+        public int NumberOfColumns { get; set; }
         public IDictionary<string, Cell> Cells;
         public List<Ship> Ships { get; set; }
 
-        public Grid()
+        public Grid(int numberOfRows, int numberOfColumns)
         {
+            if (numberOfColumns > 26)
+            {
+                throw new ArgumentException("There are no more than 26 letters in the alphabet.");
+            }
             Ships = new List<Ship>();
             Cells = new Dictionary<string, Cell>();
-            foreach (var row in Rows)
+            NumberOfRows = numberOfRows;
+            NumberOfColumns = numberOfColumns;
+            for (int i = 1; i <= NumberOfRows; i++)
             {
-                foreach (var column in Columns)
+                for (int j = 65; j <= 65 + NumberOfColumns; j++)
                 {
-                    Cells.Add(column.ToString() + row, new Cell(row, column));
+                    Cells.Add(((char)j).ToString() + i, new Cell(i, (char)j));
                 }
             }
         }
@@ -35,9 +43,9 @@ namespace Arobs_Battleships.Models
 
         public void BuildShip(int length)
         {
-            if (length < 2)
+            if (length < 4)
             {
-                throw new ArgumentException("Ships must be at least 2 squares long");
+                throw new ArgumentException("Ships must be at least 4 squares long");
             }
 
             Ship ship = SetShipConfiguration(length);
