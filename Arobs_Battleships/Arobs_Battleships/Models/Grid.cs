@@ -6,8 +6,6 @@ namespace Arobs_Battleships.Models
 {
     public class Grid
     {
-        //private readonly int[] Rows = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        //private readonly char[] Columns = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
         public int NumberOfRows { get; set; }
         public int NumberOfColumns { get; set; }
         public IDictionary<string, Cell> Cells;
@@ -15,10 +13,6 @@ namespace Arobs_Battleships.Models
 
         public Grid(int numberOfRows, int numberOfColumns)
         {
-            if (numberOfColumns > 26)
-            {
-                throw new ArgumentException("There are no more than 26 letters in the alphabet.");
-            }
             Ships = new List<Ship>();
             Cells = new Dictionary<string, Cell>();
             NumberOfRows = numberOfRows;

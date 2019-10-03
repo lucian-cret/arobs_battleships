@@ -22,12 +22,19 @@ namespace Arobs_Battleships
         {
             services.Configure<GridConfiguration>(o =>
             {
-                o.Rows = Configuration.GetValue<int>("GridRows");
-                o.Columns = Configuration.GetValue<int>("GridColumns");
+                var rowsAsString = Configuration.GetValue<string>("GridRows");
+                var columnsAsString = Configuration.GetValue<string>("GridColumns");
 
-                if (o.Rows == 0 || o.Columns == 0)
+                if (string.IsNullOrEmpty(rowsAsString) || string.IsNullOrEmpty(columnsAsString) ||
+                    !int.TryParse(rowsAsString, out _) || !int.TryParse(columnsAsString, out _))
                 {
                     throw new ConfigurationErrorsException("Missing value for grid configuration.");
+                }
+                o.Rows = int.Parse(rowsAsString);
+                o.Columns = int.Parse(columnsAsString);
+                if (o.Columns > 26)
+                {
+                    throw new ConfigurationErrorsException("26 is the maximum allowed number of columns.");
                 }
             }); 
             services.AddMvc();
