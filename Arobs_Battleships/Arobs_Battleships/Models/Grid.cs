@@ -19,7 +19,7 @@ namespace Arobs_Battleships.Models
             NumberOfColumns = numberOfColumns;
             for (int i = 1; i <= NumberOfRows; i++)
             {
-                for (int j = 65; j <= 65 + NumberOfColumns; j++)
+                for (int j = 65; j <= 64 + NumberOfColumns; j++)
                 {
                     Cells.Add(((char)j).ToString() + i, new Cell(i, (char)j));
                 }
@@ -87,8 +87,8 @@ namespace Arobs_Battleships.Models
         private Ship SetShipConfiguration(int length)
         {
             Random r = new Random();
-            int row = r.Next(1, 11);
-            char column = (char)r.Next(65, 75);
+            int row = r.Next(1, NumberOfRows + 1);
+            char column = (char)r.Next(65, 64 + NumberOfColumns);
             Cell bow = new Cell(row, column);
             return new Ship(bow, (ShipOrientation)r.Next(4), length);
         }
@@ -112,7 +112,7 @@ namespace Arobs_Battleships.Models
                     }
                     break;
                 case ShipOrientation.HorizontalRight:
-                    if (ship.ShipBow.Column + ship.Length > 'J')
+                    if (ship.ShipBow.Column + ship.Length > 64 + NumberOfColumns)
                         return false;
                     for (int i = ship.ShipBow.Column; i < ship.ShipBow.Column + ship.Length; i++)
                     {
@@ -123,7 +123,7 @@ namespace Arobs_Battleships.Models
                     }
                     break;
                 case ShipOrientation.VerticalDown:
-                    if (ship.ShipBow.Row + ship.Length > 10)
+                    if (ship.ShipBow.Row + ship.Length > NumberOfRows)
                         return false;
                     for (int i = ship.ShipBow.Row; i < ship.ShipBow.Row + ship.Length; i++)
                     {
