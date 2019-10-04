@@ -5,9 +5,13 @@ namespace Arobs_Battleships.ViewModels.Home
 {
     public class GridConfigurationViewModel : IValidatableObject
     {
+        [Range(1, 100, ErrorMessage = "Number of rows not provided.")]
         public int Rows { get; set; }
+        [Range(1, 100, ErrorMessage = "Number of columns not provided.")]
         public int Columns { get; set; }
+        [Range(1, 100, ErrorMessage = "Number of battleships not provided.")]
         public int Battleships { get; set; }
+        [Range(1, 100, ErrorMessage = "Number of destroyers not provided.")]
         public int Destroyers { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
