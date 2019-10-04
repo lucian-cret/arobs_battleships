@@ -13,6 +13,10 @@ namespace Arobs_Battleships.Models
 
         public Grid(int numberOfRows, int numberOfColumns)
         {
+            if (numberOfRows < 5 || numberOfRows < 5)
+            {
+                throw new ArgumentException("Grid must be at least 5 x 5 squares");
+            }
             Ships = new List<Ship>();
             Cells = new Dictionary<string, Cell>();
             NumberOfRows = numberOfRows;
@@ -42,10 +46,10 @@ namespace Arobs_Battleships.Models
                 throw new ArgumentException("Ships must be at least 4 squares long");
             }
 
-            Ship ship = SetShipConfiguration(length);
+            Ship ship = CreateShipConfiguration(length);
             while (!IsShipValid(ship))
             {
-                ship = SetShipConfiguration(length);
+                ship = CreateShipConfiguration(length);
             }
             Ships.Add(ship);
         }
@@ -85,7 +89,7 @@ namespace Arobs_Battleships.Models
             return new ShotResponse(new List<Cell> { cell }, false);
         }
 
-        private Ship SetShipConfiguration(int length)
+        private Ship CreateShipConfiguration(int length)
         {
             Random r = new Random();
             int row = r.Next(1, NumberOfRows + 1);
