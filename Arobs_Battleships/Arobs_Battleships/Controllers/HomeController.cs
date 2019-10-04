@@ -22,10 +22,15 @@ namespace Arobs_Battleships.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Post(GridConfigurationViewModel model)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View("Index", model);
+                }
                 grid = new Grid(model.Rows, model.Columns);
                 for (int i = 0; i < model.Battleships; i++)
                 {
