@@ -47,6 +47,7 @@ namespace Arobs_Battleships.Models
             {
                 ship = SetShipConfiguration(length);
             }
+            Ships.Add(ship);
         }
 
         public Ship GetCellShip(Cell cell)
@@ -96,67 +97,108 @@ namespace Arobs_Battleships.Models
         private bool IsShipValid(Ship ship)
         {
             ship.Cells = new List<Cell>();
-
             //check if outside of grid or overlapping. If all ok, launch ship at sea.
             switch (ship.Orientation)
             {
                 case ShipOrientation.VerticalUp:
-                    if (ship.ShipBow.Row - ship.Length < 1)
-                        return false;
-                    for (int i = ship.ShipBow.Row; i > ship.ShipBow.Row - ship.Length; i--)
+                    if (!ValidateVerticalUpShip(ship))
                     {
-                        if (!IsCellWater(ship.ShipBow.Column, i, ship.Cells))
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                     break;
                 case ShipOrientation.HorizontalRight:
-                    if (ship.ShipBow.Column + ship.Length > 64 + NumberOfColumns)
-                        return false;
-                    for (int i = ship.ShipBow.Column; i < ship.ShipBow.Column + ship.Length; i++)
+                    if (!ValidateHorizontalRightShip(ship))
                     {
-                        if (!IsCellWater((char)i, ship.ShipBow.Row, ship.Cells))
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                     break;
                 case ShipOrientation.VerticalDown:
-                    if (ship.ShipBow.Row + ship.Length > NumberOfRows)
-                        return false;
-                    for (int i = ship.ShipBow.Row; i < ship.ShipBow.Row + ship.Length; i++)
+                    if (!ValidateVerticalDownShip(ship))
                     {
-                        if (!IsCellWater(ship.ShipBow.Column, i, ship.Cells))
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                     break;
                 case ShipOrientation.HorizontalLeft:
-                    if (ship.ShipBow.Column - ship.Length < 'A')
-                        return false;
-                    for (int i = ship.ShipBow.Column; i > ship.ShipBow.Column - ship.Length; i--)
+                    if (!ValidateHorizontalLeftShip(ship))
                     {
-                        if (!IsCellWater((char)i, ship.ShipBow.Row, ship.Cells))
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                     break;
             }
             ship.Cells.ForEach(c => c.State = CellState.IsShip);
-            Ships.Add(ship);
+            return true;
+        }
+        private bool IsCellWater(Cell cell)
+        {
+            return cell != null && cell.State == CellState.IsWater;
+        }
+
+        private bool ValidateVerticalUpShip(Ship ship)
+        {
+            if (ship.ShipBow.Row - ship.Length < 1)
+                return false;
+            Cell currentCell = null;
+            for (int i = ship.ShipBow.Row; i > ship.ShipBow.Row - ship.Length; i--)
+            {
+                currentCell = GetCellByCoordinates(ship.ShipBow.Column, i);
+                if (!IsCellWater(currentCell))
+                {
+                    return false;
+                }
+                ship.Cells.Add(currentCell);
+            }
             return true;
         }
 
-        private bool IsCellWater(char column, int row, IList<Cell> cells)
+        private bool ValidateHorizontalRightShip(Ship ship)
         {
-            var cell = GetCellByCoordinates(column, row);
-            if (cell == null)
-                throw new ArgumentException("Invalid cell coordinates.");
-            cells.Add(cell);
-            return cell.State == CellState.IsWater;
+            if (ship.ShipBow.Column + ship.Length > 64 + NumberOfColumns)
+                return false;
+            Cell currentCell = null;
+            for (int i = ship.ShipBow.Column; i < ship.ShipBow.Column + ship.Length; i++)
+            {
+                currentCell = GetCellByCoordinates((char)i, ship.ShipBow.Row);
+                if (!IsCellWater(currentCell))
+                {
+                    return false;
+                }
+                ship.Cells.Add(currentCell);
+            }
+            return true;
+        }
+
+        private bool ValidateVerticalDownShip(Ship ship)
+        {
+            if (ship.ShipBow.Row + ship.Length > NumberOfRows)
+                return false;
+            Cell currentCell = null;
+            for (int i = ship.ShipBow.Row; i < ship.ShipBow.Row + ship.Length; i++)
+            {
+                currentCell = GetCellByCoordinates(ship.ShipBow.Column, i);
+                if (!IsCellWater(currentCell))
+                {
+                    return false;
+                }
+                ship.Cells.Add(currentCell);
+            }
+            return true;
+        }
+
+        private bool ValidateHorizontalLeftShip(Ship ship)
+        {
+            if (ship.ShipBow.Column - ship.Length < 'A')
+                return false;
+            Cell currentCell = null;
+            for (int i = ship.ShipBow.Column; i > ship.ShipBow.Column - ship.Length; i--)
+            {
+                currentCell = GetCellByCoordinates((char)i, ship.ShipBow.Row);
+                if (!IsCellWater(currentCell))
+                {
+                    return false;
+                }
+                ship.Cells.Add(currentCell);
+            }
+            return true;
         }
     }
 }
