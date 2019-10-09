@@ -24,7 +24,7 @@ you can open a browser and go to http://localhost:5000.
 Choose the grid settings and start shooting.
 
 ### Good to know
-* There are 2 types of ships that can be placed on the grid.
-    - Battleship which takes up 5 squares
-    - Destroyers which takes up 4 squares
-* If the size of the grid is smaller than double the number of the squares occupied by ships, then a warning will be shown and you cannot start a new game.
+* There are 2 types of ships that can be placed on the grid:
+    - Battleships which take up 5 squares each
+    - Destroyers which take up 4 squares each
+* If the size of the grid is smaller than double the number of the squares occupied by the ships, then a warning will be shown and you cannot start a new game.
