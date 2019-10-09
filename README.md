@@ -1,6 +1,7 @@
 # Arobs Battleships
 
-A simple Battleships game written in ASP.NET Core MVC.
+A simple Battleships game written in ASP.NET Core MVC and jQuery.  
+xUnit was used for unit testing.
 
 ### Prerequisites
 
