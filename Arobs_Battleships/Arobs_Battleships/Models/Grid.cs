@@ -64,7 +64,7 @@ namespace Arobs_Battleships.Models
             return null;
         }
 
-        public ShotResponse ShotAtCell(char column, int row)
+        public ShotResponse ShootAtCell(char column, int row)
         {
             var cell = GetCellByCoordinates(column, row);
             switch (cell.State)

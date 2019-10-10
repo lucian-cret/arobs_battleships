@@ -54,7 +54,7 @@ namespace Arobs_Battleships.Controllers
         [Route("shoot")]
         public IActionResult Shoot(char column, int row)
         {
-            return Ok(grid.ShotAtCell(column, row));
+            return Ok(grid.ShootAtCell(column, row));
         }
     }
 }
