@@ -62,7 +62,13 @@ body {
 
 .cell-border {
     border: 2px solid black;
-    background-color: aquamarine;
+    background-color: lightblue;
+}
+
+.cell-coordinates {
+    color: magenta;
+    font-weight: bolder;
+    cursor: pointer;
 }
 
 .shiphit {

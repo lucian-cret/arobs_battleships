@@ -39,6 +39,12 @@
                 var position = $(this).attr('data-position');
                 shoot(position.charAt(0), position.substring(1));
             });
+            $('.cell-border').hover(function () {
+                hoverOverWaterCell(this);
+            },
+            function () {
+               $(this).empty(); 
+            });
         });
     </script>
 }

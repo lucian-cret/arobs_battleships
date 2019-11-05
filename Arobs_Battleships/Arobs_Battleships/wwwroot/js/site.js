@@ -1,4 +1,8 @@
-﻿function shoot(column, row) {
+﻿function hoverOverWaterCell(cell) {
+    var coordinates = $(cell).attr("data-position");
+    $(cell).append('<span class="cell-coordinates">' + coordinates + '</span>');
+}
+function shoot(column, row) {
     $.ajax({
         method: "POST",
         url: "/shoot",
@@ -25,7 +29,7 @@ function setCellState(item) {
             break;
         case 4:
             classToSet = 'shipsunk';
-            break;  
+            break;
     }
     var cell = $('[data-position="' + (item.column + item.row) + '"]');
     cell.addClass(classToSet);
