@@ -19,7 +19,12 @@ namespace Battleships.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new GridConfigurationViewModel()
+            {
+                Rows = 10,
+                Columns = 10
+            };
+            return View(viewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

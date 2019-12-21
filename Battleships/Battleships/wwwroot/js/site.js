@@ -34,3 +34,9 @@ function setCellState(item) {
     var cell = $('[data-position="' + (item.column + item.row) + '"]');
     cell.addClass(classToSet);
 }
+
+$(document).ready(function () {
+    $("form input").click(function () {
+        $(this).select();
+    });
+});
