@@ -1,4 +1,4 @@
-# Arobs Battleships
+# Battleships
 
 A simple Battleships game written in ASP.NET Core MVC and jQuery.  
 xUnit was used for unit testing.
